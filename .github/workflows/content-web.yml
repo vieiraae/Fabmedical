@@ -71,7 +71,7 @@ jobs:
         cd ./content-web/charts/web
 
         helm chart save . content-web:v${{ env.tag }}
-        helm chart save . ${{ env.containerRegistry }}/helm/content-web:v${{ env.tag }}
+        helm chart save . ${{ env.containerRegistry }}/content-web:v${{ env.tag }}
 
         # list out saved charts
         helm chart list
@@ -81,7 +81,7 @@ jobs:
     - name: Helm Chart Push
       run: |
         helm registry login ${{ env.containerRegistry }} --username ${{ secrets.ACR_USERNAME }} --password ${{ secrets.ACR_PASSWORD }}
-        helm chart push ${{ env.containerRegistry }}/helm/content-web:v${{ env.tag }}
+        helm chart push ${{ env.containerRegistry }}/content-web:v${{ env.tag }}
       env:
         HELM_EXPERIMENTAL_OCI: 1
    aks-deployment:
@@ -108,8 +108,8 @@ jobs:
     - name: Helm Upgrade
       run: |
         helm registry login ${{ env.containerRegistry }} --username ${{ secrets.ACR_USERNAME }} --password ${{ secrets.ACR_PASSWORD }}
-        helm chart pull ${{ env.containerRegistry }}/helm/content-web:v${{ env.tag }}
-        helm chart export ${{ env.containerRegistry }}/helm/content-web:v${{ env.tag }} --destination ./upgrade
+        helm chart pull ${{ env.containerRegistry }}/content-web:v${{ env.tag }}
+        helm chart export ${{ env.containerRegistry }}/content-web:v${{ env.tag }} --destination ./upgrade
         helm upgrade web ./upgrade/web
       env:
         KUBECONFIG: './kubeconfig'
