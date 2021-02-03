@@ -5,7 +5,7 @@
 replicaCount: 2
 
 image:
-  repository: fabmedicalav.azurecr.io/helm/content-web
+  repository: fabmedicalav.azurecr.io/content-web
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
