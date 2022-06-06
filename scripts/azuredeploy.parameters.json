@@ -12,16 +12,16 @@
       "value": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCyYoeLhQQWWfuvm5DrMp7gEOuWJZtJuVkY55aHDD2eR7RRSiP1GFAKIXCTmKD56PHu9oaaAL6UBS5Xh3KGlL7kBzeYZBYIB8wF0sc0RH+uZbldJnoMR+Bd1HyOqizSF2TG91x10+AeRalafYArn84rDs57deZGblnEl/SRVjhtpAJR21MB+5lb9ltqmvzh4xKA6ti2KAVs22slx9T7IzelNI7t1e+UEwYLomd7eaNwot7+2B4wOeigNCfAfBqRmbV9DlD/A3vs3NfHeGl38zamJ2H5TSHIDwT80vCENka9Kxipuq6wmKPxm2OZDx0/TqEkRhYaXiY62GhnwakX3cwL admin@fabmedical"
     },
     "CosmosLocation": {
-      "value": "northeurope"
-    },
-    "CosmosLocationName": {
-      "value": "North Europe"
-    },
-    "CosmosPairedLocation": {
       "value": "westeurope"
     },
-    "CosmosPairedLocationName": {
+    "CosmosLocationName": {
       "value": "West Europe"
+    },
+    "CosmosPairedLocation": {
+      "value": "northeurope"
+    },
+    "CosmosPairedLocationName": {
+      "value": "North Europe"
     }
   }
 }
