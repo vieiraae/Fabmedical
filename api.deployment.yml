@@ -1,12 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "1"
+  creationTimestamp: "2022-06-07T18:53:06Z"
+  generation: 1
   labels:
-      app: api
+    app: api
   name: api
   namespace: ingress-demo
+  resourceVersion: "28277"
+  uid: 2ff34ab2-68f0-45d2-89f9-c185b9cf06e7
 spec:
+  progressDeadlineSeconds: 600
   replicas: 1
+  revisionHistoryLimit: 10
   selector:
     matchLabels:
       app: api
@@ -17,36 +25,39 @@ spec:
     type: RollingUpdate
   template:
     metadata:
+      creationTimestamp: null
       labels:
-          app: api
+        app: api
       name: api
     spec:
       containers:
-      - image: fabmedicalanv.azurecr.io/content-api
-        env:
-          - name: MONGODB_CONNECTION
-            valueFrom:
-              secretKeyRef:
-                name: cosmosdb
-                key: db
-        name: api
+      - env:
+        - name: MONGODB_CONNECTION
+          valueFrom:
+            secretKeyRef:
+              key: db
+              name: cosmosdb
+        image: fabmedicalanv.azurecr.io/content-api
         imagePullPolicy: Always
         livenessProbe:
+          failureThreshold: 3
           httpGet:
-              path: /
-              port: 3001
+            path: /
+            port: 3001
+            scheme: HTTP
           initialDelaySeconds: 30
           periodSeconds: 20
+          successThreshold: 1
           timeoutSeconds: 10
-          failureThreshold: 3
+        name: api
         ports:
-          - containerPort: 3001
-            hostPort: 3001
-            protocol: TCP
+        - containerPort: 3001
+          hostPort: 3001
+          protocol: TCP
         resources:
           requests:
-              cpu: 1000m
-              memory: 128Mi
+            cpu: "1"
+            memory: 128Mi
         securityContext:
           privileged: false
         terminationMessagePath: /dev/termination-log
@@ -55,4 +66,23 @@ spec:
       restartPolicy: Always
       schedulerName: default-scheduler
       securityContext: {}
-      terminationGracePeriodSeconds: 30 
+      terminationGracePeriodSeconds: 31
+status:
+  availableReplicas: 1
+  conditions:
+  - lastTransitionTime: "2022-06-07T18:53:06Z"
+    lastUpdateTime: "2022-06-07T18:53:06Z"
+    message: Deployment has minimum availability.
+    reason: MinimumReplicasAvailable
+    status: "True"
+    type: Available
+  - lastTransitionTime: "2022-06-07T18:53:06Z"
+    lastUpdateTime: "2022-06-07T18:53:09Z"
+    message: ReplicaSet "api-7675649b47" has successfully progressed.
+    reason: NewReplicaSetAvailable
+    status: "True"
+    type: Progressing
+  observedGeneration: 1
+  readyReplicas: 1
+  replicas: 1
+  updatedReplicas: 1
